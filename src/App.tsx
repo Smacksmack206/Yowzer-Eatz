@@ -10,14 +10,13 @@ import { HeroSection } from './components/HeroSection';
 import { CostEstimatorWidget } from './components/CostEstimatorWidget';
 import { CorporateView } from './components/CorporateView';
 import { WeddingView } from './components/WeddingView';
-import { LicensingHubView } from './components/LicensingHubView';
 import { MenuCatalogView } from './components/MenuCatalogView';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { AvailabilityCalendarWidget } from './components/AvailabilityCalendarWidget';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { SEOArchitectureModal } from './components/SEOArchitectureModal';
 import { Footer } from './components/Footer';
-import { Utensils, Award, Users, ShieldCheck, Heart, Sparkles, Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Utensils, Award, Users, Heart, Sparkles, Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<PageView>('home');
@@ -53,7 +52,7 @@ export default function App() {
       });
     }
 
-    if (page && ['home', 'corporate', 'weddings', 'licensing', 'menu', 'reviews', 'calendar'].includes(page)) {
+    if (page && ['home', 'corporate', 'weddings', 'menu', 'reviews', 'calendar'].includes(page)) {
       setCurrentView(page);
     }
   }, []);
@@ -106,8 +105,8 @@ export default function App() {
         onScrollToEstimator={handleScrollToEstimator}
       />
 
-      {/* 2. Core Service Offerings Trio */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 2. Core Service Offerings Duo */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Pacific Northwest Catering Excellence
@@ -117,7 +116,7 @@ export default function App() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Corporate */}
           <div className="bg-slate-900/90 rounded-2xl p-6 border border-slate-800 shadow-lg hover:border-slate-700 transition-all flex flex-col justify-between">
             <div>
@@ -166,31 +165,6 @@ export default function App() {
                 className="text-xs font-bold text-slate-200 hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors"
               >
                 <span>View Weddings</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Licensing & Compliance */}
-          <div className="bg-slate-900/90 rounded-2xl p-6 border border-slate-800 shadow-lg hover:border-slate-700 transition-all flex flex-col justify-between">
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-amber-950/80 border border-amber-800/40 text-amber-400 flex items-center justify-center mb-4">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">
-                Licensing & Venue Syndication
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Instant machine-readable JSON-LD Schema snippet, $2M commercial liability insurance on file, and King County Health permit verification.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400 font-mono">UBI-604-892-114</span>
-              <button
-                onClick={() => setCurrentView('licensing')}
-                className="text-xs font-bold text-slate-200 hover:text-emerald-400 flex items-center gap-1 cursor-pointer transition-colors"
-              >
-                <span>Compliance Hub</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -291,7 +265,6 @@ export default function App() {
             onScrollToEstimator={handleScrollToEstimator}
           />
         )}
-        {currentView === 'licensing' && <LicensingHubView />}
         {currentView === 'calendar' && (
           <div className="py-6">
             <AvailabilityCalendarWidget
