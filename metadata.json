@@ -1,0 +1,8 @@
+{
+  "name": "Remix Seattle Catering Co.",
+  "description": "Yowzer Eatz farm-to-table Seattle catering website with dynamic keyword insertion, 2026 Seattle tax estimator, and venue syndication architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

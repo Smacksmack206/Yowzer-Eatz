@@ -1,0 +1,82 @@
+{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "FoodEstablishment", "CateringService"],
+  "name": "Seattle Catering Co.",
+  "image": "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=80",
+  "@id": "https://seattlecatering.example.com",
+  "url": "https://seattlecatering.example.com",
+  "telephone": "+1-206-555-0199",
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1420 5th Ave, Suite 800",
+    "addressLocality": "Seattle",
+    "addressRegion": "WA",
+    "postalCode": "98101",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 47.6062,
+    "longitude": -122.3321
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Seattle"
+    },
+    {
+      "@type": "City",
+      "name": "Bellevue"
+    },
+    {
+      "@type": "City",
+      "name": "Kirkland"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "King County"
+    }
+  ],
+  "servesCuisine": "Pacific Northwest, Farm to Table, Sustainable Seafood",
+  "taxID": "WA-UBI-604-892-114",
+  "hasCredential": [
+    {
+      "@type": "GovernmentPermit",
+      "name": "King County Public Health Commissary Permit",
+      "identifier": "KC-HEALTH-PR0094182",
+      "validThrough": "2027-06-30",
+      "issuedBy": {
+        "@type": "GovernmentOrganization",
+        "name": "Public Health – Seattle & King County"
+      }
+    },
+    {
+      "@type": "GovernmentPermit",
+      "name": "City of Seattle Regulatory Business License",
+      "identifier": "SEA-LIC-849201",
+      "validThrough": "2026-12-31",
+      "issuedBy": {
+        "@type": "GovernmentOrganization",
+        "name": "City of Seattle Finance and Administrative Services"
+      }
+    },
+    {
+      "@type": "GovernmentPermit",
+      "name": "WSLCB Liquor Catering & Spirits Endorsement",
+      "identifier": "WSLCB-CAT-418290",
+      "issuedBy": {
+        "@type": "GovernmentOrganization",
+        "name": "Washington State Liquor and Cannabis Board"
+      }
+    }
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "07:00",
+      "closes": "23:00"
+    }
+  ]
+}

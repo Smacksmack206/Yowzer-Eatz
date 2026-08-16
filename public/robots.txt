@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /schema-syndication.json
+Disallow: /css/
+Disallow: /js/
+
+Sitemap: https://seattlecatering.example.com/sitemap.xml
