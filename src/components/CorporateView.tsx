@@ -1,6 +1,6 @@
 import React from 'react';
 import CostEstimatorWidget from './CostEstimatorWidget';
-import LeadCaptureModal from './LeadCaptureModal'; // Assuming this is imported here
+import { LeadCaptureModal } from './LeadCaptureModal';
 
 const CorporateView = () => {
   return (
