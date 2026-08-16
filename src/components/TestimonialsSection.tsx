@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { TestimonialReview } from '../types';
-import { INITIAL_TESTIMONIALS } from '../data/cateringData';
 import { Star, CheckCircle2, MessageSquarePlus, Sparkles, X, Send, MapPin, Calendar, Users, Award } from 'lucide-react';
 
 interface TestimonialsSectionProps {
@@ -17,7 +16,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ onOpen
     } catch {
       // ignore
     }
-    return INITIAL_TESTIMONIALS;
+    return []; // Removed INITIAL_TESTIMONIALS, defaults to empty array
   });
 
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
@@ -85,8 +84,11 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ onOpen
     return true;
   });
 
+  // Safeguard against division by zero if there are no reviews
   const averageRating = (
-    reviews.reduce((acc, r) => acc + r.rating, 0) / (reviews.length || 1)
+    reviews.length > 0
+      ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length
+      : 0
   ).toFixed(1);
 
   return (
@@ -163,83 +165,89 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ onOpen
 
       {/* Reviews Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredReviews.map((item) => (
-          <div
-            key={item.id}
-            className="bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl hover:border-slate-700 transition-all flex flex-col justify-between"
-          >
-            <div>
-              {/* Header with Avatar and Rating */}
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full ${item.avatarBg || 'bg-emerald-600'} text-white flex items-center justify-center font-bold text-sm shadow-xs`}>
-                    {item.customerName.charAt(0)}
+        {filteredReviews.length > 0 ? (
+          filteredReviews.map((item) => (
+            <div
+              key={item.id}
+              className="bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-xl hover:border-slate-700 transition-all flex flex-col justify-between"
+            >
+              <div>
+                {/* Header with Avatar and Rating */}
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-full ${item.avatarBg || 'bg-emerald-600'} text-white flex items-center justify-center font-bold text-sm shadow-xs`}>
+                      {item.customerName.charAt(0)}
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white leading-snug">
+                        {item.customerName}
+                      </h3>
+                      {item.roleOrCompany && (
+                        <p className="text-[11px] text-slate-400 line-clamp-1">{item.roleOrCompany}</p>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white leading-snug">
-                      {item.customerName}
-                    </h3>
-                    {item.roleOrCompany && (
-                      <p className="text-[11px] text-slate-400 line-clamp-1">{item.roleOrCompany}</p>
-                    )}
-                  </div>
+
+                  {item.verified && (
+                    <span className="inline-flex items-center gap-1 bg-emerald-950/80 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-lg border border-emerald-800/60">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>Verified</span>
+                    </span>
+                  )}
                 </div>
 
-                {item.verified && (
-                  <span className="inline-flex items-center gap-1 bg-emerald-950/80 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-lg border border-emerald-800/60">
-                    <CheckCircle2 className="w-3 h-3" />
-                    <span>Verified</span>
-                  </span>
-                )}
-              </div>
+                {/* Star Rating & Event Details */}
+                <div className="flex items-center gap-1 mb-2">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star
+                      key={s}
+                      className={`w-3.5 h-3.5 ${
+                        s <= item.rating
+                          ? 'text-[#E67E22] fill-[#E67E22]'
+                          : 'text-slate-700 fill-slate-800'
+                      }`}
+                    />
+                  ))}
+                  <span className="text-[11px] text-slate-400 font-bold ml-1">{item.rating}.0</span>
+                </div>
 
-              {/* Star Rating & Event Details */}
-              <div className="flex items-center gap-1 mb-2">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star
-                    key={s}
-                    className={`w-3.5 h-3.5 ${
-                      s <= item.rating
-                        ? 'text-[#E67E22] fill-[#E67E22]'
-                        : 'text-slate-700 fill-slate-800'
-                    }`}
-                  />
-                ))}
-                <span className="text-[11px] text-slate-400 font-bold ml-1">{item.rating}.0</span>
-              </div>
-
-              {/* Event Type & Date Tag */}
-              <div className="flex flex-wrap gap-2 text-[11px] text-slate-400 mb-3">
-                <span className="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-lg font-medium text-slate-300 flex items-center gap-1">
-                  <Calendar className="w-3 h-3 text-slate-500" />
-                  {item.eventType} • {item.date}
-                </span>
-                {item.neighborhood && (
+                {/* Event Type & Date Tag */}
+                <div className="flex flex-wrap gap-2 text-[11px] text-slate-400 mb-3">
                   <span className="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-lg font-medium text-slate-300 flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-emerald-400" />
-                    {item.neighborhood}
+                    <Calendar className="w-3 h-3 text-slate-500" />
+                    {item.eventType} • {item.date}
                   </span>
-                )}
+                  {item.neighborhood && (
+                    <span className="bg-slate-950 border border-slate-800 px-2 py-0.5 rounded-lg font-medium text-slate-300 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-emerald-400" />
+                      {item.neighborhood}
+                    </span>
+                  )}
+                </div>
+
+                {/* Testimonial Quote */}
+                <p className="text-xs text-slate-300 leading-relaxed italic">
+                  "{item.testimonial}"
+                </p>
               </div>
 
-              {/* Testimonial Quote */}
-              <p className="text-xs text-slate-300 leading-relaxed italic">
-                "{item.testimonial}"
-              </p>
+              {/* Footer with guest count */}
+              {item.guestCount && (
+                <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-400 font-medium">
+                  <span className="flex items-center gap-1">
+                    <Users className="w-3 h-3 text-slate-500" />
+                    <span>{item.guestCount} Guests Catered</span>
+                  </span>
+                  <span className="text-emerald-400 font-bold">100% On-Time Setup</span>
+                </div>
+              )}
             </div>
-
-            {/* Footer with guest count */}
-            {item.guestCount && (
-              <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-400 font-medium">
-                <span className="flex items-center gap-1">
-                  <Users className="w-3 h-3 text-slate-500" />
-                  <span>{item.guestCount} Guests Catered</span>
-                </span>
-                <span className="text-emerald-400 font-bold">100% On-Time Setup</span>
-              </div>
-            )}
+          ))
+        ) : (
+          <div className="col-span-full py-12 text-center border-2 border-dashed border-slate-800 rounded-3xl">
+            <p className="text-slate-400 text-sm">No reviews have been published yet. Be the first to share your experience!</p>
           </div>
-        ))}
+        )}
       </div>
 
       {/* Submit Review Modal */}
