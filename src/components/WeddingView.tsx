@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heart, Sparkles, MapPin, Wine, Calendar, ShieldCheck } from 'lucide-react';
 import { SEATTLE_VENUE_PARTNERS } from '../data/cateringData';
-import { CostEstimatorWidget } from './CostEstimatorWidget';
+import CostEstimatorWidget from './CostEstimatorWidget';
 
 interface WeddingViewProps {
   onOpenLeadModal: (defaultType?: string) => void;
